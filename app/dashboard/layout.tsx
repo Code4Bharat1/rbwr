@@ -16,7 +16,11 @@ const navSections = [
 
 export default function ParticipantDashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <DashboardShell portalLabel="Participant Dashboard" navSections={navSections}>
+    <DashboardShell
+      portalLabel="Participant Dashboard"
+      navSections={navSections}
+      requiredRoles={["participant", "rotarian"]}
+    >
       {children}
     </DashboardShell>
   );

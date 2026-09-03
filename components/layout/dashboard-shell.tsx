@@ -20,11 +20,12 @@ import {
 } from "@/components/ui/sidebar";
 import { GlobalSearch } from "@/components/layout/global-search";
 import { NotificationsPopover } from "@/components/layout/notifications-popover";
+import { RoleGate } from "@/components/layout/role-gate";
 import { UserAvatar } from "@/components/shared/user-avatar";
 import { useDemoStore } from "@/lib/store/use-demo-store";
 import { useMounted } from "@/hooks/use-mounted";
 import { getUser } from "@/lib/data/users";
-import { ROLE_LABELS } from "@/lib/types";
+import { ROLE_LABELS, Role } from "@/lib/types";
 
 export type NavSection = {
   title?: string;
@@ -34,10 +35,12 @@ export type NavSection = {
 export function DashboardShell({
   portalLabel,
   navSections,
+  requiredRoles,
   children,
 }: {
   portalLabel: string;
   navSections: NavSection[];
+  requiredRoles?: Role[];
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -46,6 +49,10 @@ export function DashboardShell({
   const viewerUserId = useDemoStore((s) => s.viewerUserId);
   const signOut = useDemoStore((s) => s.signOut);
   const user = mounted && viewerUserId ? getUser(viewerUserId) : undefined;
+
+  if (mounted && requiredRoles && (!viewerRole || !requiredRoles.includes(viewerRole))) {
+    return <RoleGate portalLabel={portalLabel} requiredRoles={requiredRoles} />;
+  }
 
   return (
     <SidebarProvider>

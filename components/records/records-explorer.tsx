@@ -15,12 +15,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RecordCard } from "@/components/records/record-card";
 import { records } from "@/lib/data/records";
 import { categories } from "@/lib/data/categories";
-import { countries } from "@/lib/data/geo";
+import { countries, cities, districts, getClub, getCity } from "@/lib/data/geo";
+import { districtIdForRecord } from "@/lib/selectors";
 import { CategoryGroup, RecordHolderType, RecordStatus } from "@/lib/types";
 
 const statusOptions: RecordStatus[] = ["current", "broken", "pending", "historical"];
 const holderTypeOptions: RecordHolderType[] = ["individual", "group", "club", "corporate"];
 const groupOptions = Array.from(new Set(categories.map((c) => c.group))) as CategoryGroup[];
+
+const citiesWithRecords = cities.filter((c) => records.some((r) => r.cityId === c.id));
+const districtsWithRecords = districts.filter((d) => records.some((r) => districtIdForRecord(r) === d.id));
 
 export function RecordsExplorer({
   initialQuery = "",
@@ -32,6 +36,8 @@ export function RecordsExplorer({
   const [query, setQuery] = useState(initialQuery);
   const [group, setGroup] = useState<string>(initialGroup ?? "all");
   const [country, setCountry] = useState<string>("all");
+  const [city, setCity] = useState<string>("all");
+  const [district, setDistrict] = useState<string>("all");
   const [statuses, setStatuses] = useState<RecordStatus[]>([]);
   const [holderTypes, setHolderTypes] = useState<RecordHolderType[]>([]);
   const [showAdvanced, setShowAdvanced] = useState(Boolean(initialGroup));
@@ -42,16 +48,22 @@ export function RecordsExplorer({
       const category = categories.find((c) => c.id === r.categoryId);
       if (group !== "all" && category?.group !== group) return false;
       if (country !== "all" && r.countryId !== country) return false;
+      if (city !== "all" && r.cityId !== city) return false;
+      if (district !== "all" && districtIdForRecord(r) !== district) return false;
       if (statuses.length > 0 && !statuses.includes(r.status)) return false;
       if (holderTypes.length > 0 && !holderTypes.includes(r.holderType)) return false;
       if (!q) return true;
+      const clubName = r.holderClubId ? getClub(r.holderClubId)?.name.toLowerCase() ?? "" : "";
+      const cityName = getCity(r.cityId)?.name.toLowerCase() ?? "";
       return (
         r.title.toLowerCase().includes(q) ||
         r.id.toLowerCase().includes(q) ||
-        r.holderName.toLowerCase().includes(q)
+        r.holderName.toLowerCase().includes(q) ||
+        clubName.includes(q) ||
+        cityName.includes(q)
       );
     });
-  }, [query, group, country, statuses, holderTypes]);
+  }, [query, group, country, city, district, statuses, holderTypes]);
 
   function toggleStatus(s: RecordStatus) {
     setStatuses((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
@@ -62,13 +74,20 @@ export function RecordsExplorer({
   function clearFilters() {
     setGroup("all");
     setCountry("all");
+    setCity("all");
+    setDistrict("all");
     setStatuses([]);
     setHolderTypes([]);
     setQuery("");
   }
 
   const activeFilterCount =
-    (group !== "all" ? 1 : 0) + (country !== "all" ? 1 : 0) + statuses.length + holderTypes.length;
+    (group !== "all" ? 1 : 0) +
+    (country !== "all" ? 1 : 0) +
+    (city !== "all" ? 1 : 0) +
+    (district !== "all" ? 1 : 0) +
+    statuses.length +
+    holderTypes.length;
 
   return (
     <div>
@@ -78,7 +97,7 @@ export function RecordsExplorer({
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by title, record ID, holder, or club…"
+            placeholder="Search by title, record ID, holder, club, or city…"
             className="pl-9"
           />
         </div>
@@ -149,8 +168,38 @@ export function RecordsExplorer({
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div>
+            <p className="mb-2 text-sm font-semibold text-navy">City</p>
+            <Select value={city} onValueChange={setCity}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="All Cities" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Cities</SelectItem>
+                {citiesWithRecords.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <p className="mb-2 text-sm font-semibold text-navy">Rotary District</p>
+            <Select value={district} onValueChange={setDistrict}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="All Districts" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Districts</SelectItem>
+                {districtsWithRecords.map((d) => (
+                  <SelectItem key={d.id} value={d.id}>District {d.number} — {d.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-end">
             {activeFilterCount > 0 && (
-              <Button variant="ghost" size="sm" onClick={clearFilters} className="mt-4 gap-1.5 text-muted-foreground">
+              <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1.5 text-muted-foreground">
                 <X className="h-3.5 w-3.5" /> Clear all filters
               </Button>
             )}

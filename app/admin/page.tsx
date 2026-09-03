@@ -48,7 +48,7 @@ export default function AdminOverviewPage() {
   const overrides = useDemoStore((s) => s.applicationStatusOverrides);
   const effective = applications.map((a) => overrides[a.id] ?? a.status);
 
-  const activeApplications = effective.filter((s) => s !== "verified" && s !== "rejected").length;
+  const activeApplications = effective.filter((s) => s !== "verified" && s !== "not_verified" && s !== "withdrawn").length;
   const liveAttempts = attempts.filter((a) => a.status === "live").length;
   const pendingVerification = effective.filter((s) => s === "under_verification").length;
   const verifiedRecords = records.filter((r) => r.status === "current").length;
@@ -71,7 +71,7 @@ export default function AdminOverviewPage() {
   const verificationStatusData = [
     { name: "Verified", value: effective.filter((s) => s === "verified").length, role: "good" as const },
     { name: "In Progress", value: effective.filter((s) => ["under_verification", "evidence_submitted", "attempt_live"].includes(s)).length, role: "warning" as const },
-    { name: "Rejected / Appeal", value: effective.filter((s) => s === "rejected" || s === "appeal").length, role: "critical" as const },
+    { name: "Not Verified / Appeal", value: effective.filter((s) => s === "not_verified" || s === "appeal").length, role: "critical" as const },
   ];
 
   const activity = auditLogsSorted().slice(0, 8);

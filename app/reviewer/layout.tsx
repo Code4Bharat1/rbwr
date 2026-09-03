@@ -21,7 +21,7 @@ const navSections = [
 
 export default function ReviewerLayout({ children }: { children: React.ReactNode }) {
   return (
-    <DashboardShell portalLabel="RBWR Reviewer Portal" navSections={navSections}>
+    <DashboardShell portalLabel="RBWR Reviewer Portal" navSections={navSections} requiredRoles={["reviewer"]}>
       {children}
     </DashboardShell>
   );

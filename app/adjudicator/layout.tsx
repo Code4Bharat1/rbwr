@@ -24,7 +24,7 @@ const navSections = [
 
 export default function AdjudicatorLayout({ children }: { children: React.ReactNode }) {
   return (
-    <DashboardShell portalLabel="Adjudicator Portal" navSections={navSections}>
+    <DashboardShell portalLabel="Adjudicator Portal" navSections={navSections} requiredRoles={["adjudicator"]}>
       {children}
     </DashboardShell>
   );

@@ -12,7 +12,7 @@ export const auditLogs: AuditLog[] = [
   { id: "log-09", timestamp: "2026-08-31T13:29:44", userId: "u10", action: "Archived Record", resource: "RBWR-IND-MH-MUM-2019-00012", ip: "192.0.2.44", status: "SUCCESS" },
   { id: "log-10", timestamp: "2026-08-30T18:11:02", userId: "u25", action: "Issued Guidelines", resource: "gl-mass-formation", ip: "203.0.113.62", status: "SUCCESS" },
   { id: "log-11", timestamp: "2026-08-30T10:05:39", userId: "u9", action: "Login", resource: "Admin Panel", ip: "203.0.113.14", status: "FAILED" },
-  { id: "log-12", timestamp: "2026-08-29T21:34:18", userId: "u11", action: "Rejected Application", resource: "app-14", ip: "192.0.2.108", status: "SUCCESS" },
+  { id: "log-12", timestamp: "2026-08-29T21:34:18", userId: "u11", action: "Marked Application Not Verified", resource: "app-14", ip: "192.0.2.108", status: "SUCCESS" },
   { id: "log-13", timestamp: "2026-08-29T09:47:56", userId: "u5", action: "Approved Application", resource: "app-08", ip: "203.0.113.90", status: "SUCCESS" },
   { id: "log-14", timestamp: "2026-08-28T17:22:40", userId: "u27", action: "Updated Category", resource: "cat-tech-innovation", ip: "198.51.100.21", status: "SUCCESS" },
   { id: "log-15", timestamp: "2026-08-27T12:10:15", userId: "u9", action: "Issued Certificate", resource: "cert-14", ip: "203.0.113.14", status: "SUCCESS" },

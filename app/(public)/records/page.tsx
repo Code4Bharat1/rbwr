@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { RecordsExplorer } from "@/components/records/records-explorer";
+
+export const metadata: Metadata = {
+  title: "Explore Records — RBWR",
+  description:
+    "Search the global RBWR record catalog by title, Record ID, holder, club, city, district, country, and category.",
+};
 
 export default async function RecordsPage({
   searchParams,

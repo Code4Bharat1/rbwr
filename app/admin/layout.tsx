@@ -66,7 +66,7 @@ const navSections = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <DashboardShell portalLabel="Super Admin" navSections={navSections}>
+    <DashboardShell portalLabel="Super Admin" navSections={navSections} requiredRoles={["record-manager", "super-admin"]}>
       {children}
     </DashboardShell>
   );

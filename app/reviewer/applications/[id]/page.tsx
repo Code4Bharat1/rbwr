@@ -113,8 +113,8 @@ export default function ApplicationReviewPage({ params }: { params: Promise<{ id
               <Button variant="outline" className="gap-1.5" onClick={() => act("under_review", "Changes requested from applicant")}>
                 <AlertTriangle className="h-4 w-4" /> Request Changes
               </Button>
-              <Button variant="destructive" className="gap-1.5" onClick={() => act("rejected", "Application rejected")}>
-                <XCircle className="h-4 w-4" /> Reject
+              <Button variant="destructive" className="gap-1.5" onClick={() => act("not_verified", "Application marked Not Verified")}>
+                <XCircle className="h-4 w-4" /> Not Verified
               </Button>
               <Button variant="outline" className="gap-1.5 border-gold/40 text-gold-deep hover:bg-gold/10" onClick={() => act("guidelines_issued", "Guidelines issued to applicant")}>
                 <ScrollText className="h-4 w-4" /> Issue Guidelines

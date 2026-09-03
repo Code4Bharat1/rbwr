@@ -94,6 +94,14 @@ export type LeaderboardEntry = {
   points: number;
 };
 
+/**
+ * Leaderboards are computed from verified records only (SRS §13: "Leaderboard
+ * calculations must be configurable and based on verified records only").
+ * A record's `verified` flag — not just its display `status` — is the source
+ * of truth, so a pending/unverified attempt never contributes points.
+ */
+const verifiedRecords = records.filter((r) => r.verified);
+
 /** Points model: 100 per current record held, 20 per historical/broken record once held. */
 function pointsFor(recordsHeld: WorldRecord[]) {
   return recordsHeld.reduce((sum, r) => sum + (r.status === "current" ? 100 : 20), 0);
@@ -101,7 +109,7 @@ function pointsFor(recordsHeld: WorldRecord[]) {
 
 export function getIndividualLeaderboard(): LeaderboardEntry[] {
   const byUser = new Map<string, WorldRecord[]>();
-  for (const r of records) {
+  for (const r of verifiedRecords) {
     if (!r.holderUserId) continue;
     byUser.set(r.holderUserId, [...(byUser.get(r.holderUserId) ?? []), r]);
   }
@@ -122,7 +130,7 @@ export function getIndividualLeaderboard(): LeaderboardEntry[] {
 
 export function getClubLeaderboard(): LeaderboardEntry[] {
   const byClub = new Map<string, WorldRecord[]>();
-  for (const r of records) {
+  for (const r of verifiedRecords) {
     if (!r.holderClubId) continue;
     byClub.set(r.holderClubId, [...(byClub.get(r.holderClubId) ?? []), r]);
   }
@@ -143,7 +151,7 @@ export function getClubLeaderboard(): LeaderboardEntry[] {
 
 export function getCityLeaderboard(): LeaderboardEntry[] {
   const byCity = new Map<string, WorldRecord[]>();
-  for (const r of records) {
+  for (const r of verifiedRecords) {
     byCity.set(r.cityId, [...(byCity.get(r.cityId) ?? []), r]);
   }
   return [...byCity.entries()]
@@ -162,7 +170,7 @@ export function getCityLeaderboard(): LeaderboardEntry[] {
 
 export function getCountryLeaderboard(): LeaderboardEntry[] {
   const byCountry = new Map<string, WorldRecord[]>();
-  for (const r of records) {
+  for (const r of verifiedRecords) {
     byCountry.set(r.countryId, [...(byCountry.get(r.countryId) ?? []), r]);
   }
   return [...byCountry.entries()]
@@ -186,7 +194,7 @@ export function districtIdForRecord(r: WorldRecord): string | undefined {
 
 export function getDistrictLeaderboard(): LeaderboardEntry[] {
   const byDistrict = new Map<string, WorldRecord[]>();
-  for (const r of records) {
+  for (const r of verifiedRecords) {
     const districtId = districtIdForRecord(r);
     if (!districtId) continue;
     byDistrict.set(districtId, [...(byDistrict.get(districtId) ?? []), r]);
@@ -207,7 +215,7 @@ export function getDistrictLeaderboard(): LeaderboardEntry[] {
 
 export function getCategoryLeaderboard(): LeaderboardEntry[] {
   const byCategory = new Map<string, WorldRecord[]>();
-  for (const r of records) {
+  for (const r of verifiedRecords) {
     byCategory.set(r.categoryId, [...(byCategory.get(r.categoryId) ?? []), r]);
   }
   return [...byCategory.entries()]

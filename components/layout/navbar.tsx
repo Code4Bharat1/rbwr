@@ -31,7 +31,10 @@ const primaryLinks = [
 
 const moreLinks = [
   { href: "/adjudicators", label: "Adjudicators" },
+  { href: "/passport", label: "Record Passport" },
   { href: "/record-wall", label: "Record Wall" },
+  { href: "/certificates", label: "Certificates" },
+  { href: "/awards", label: "RBWR Awards" },
   { href: "/platform-flow", label: "Platform Flow" },
   { href: "/presentation", label: "Presentation Mode" },
   { href: "/about", label: "About" },

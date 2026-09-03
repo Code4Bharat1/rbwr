@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
   Award,
   Calendar,
@@ -13,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RecordImage } from "@/components/shared/record-image";
 import { VerificationBadge } from "@/components/shared/verification-badge";
-import { ShareButton } from "@/components/shared/share-button";
+import { SocialShare } from "@/components/shared/social-share";
 import { Timeline, TimelineStep } from "@/components/shared/timeline";
 import { records } from "@/lib/data/records";
 import { getCategory } from "@/lib/data/categories";
@@ -28,6 +29,29 @@ import { formatDate } from "@/lib/format";
 
 export function generateStaticParams() {
   return records.map((r) => ({ id: r.id }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const record = records.find((r) => r.id === id);
+  if (!record) return { title: "Record Not Found — RBWR" };
+
+  const description = `${record.holderName} — ${record.achievementValue} ${record.achievementUnit}. Verified ${record.status === "current" ? "current" : record.status} RBWR world record, ${record.id}.`;
+  return {
+    title: `${record.title} — RBWR`,
+    description,
+    openGraph: {
+      title: record.title,
+      description,
+      images: record.images[0] ? [record.images[0]] : undefined,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: record.title,
+      description,
+    },
+  };
 }
 
 export default async function RecordDetailsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -228,7 +252,7 @@ export default async function RecordDetailsPage({ params }: { params: Promise<{ 
               <Swords className="h-4 w-4" /> Challenge This Record
             </Link>
           </Button>
-          <ShareButton title={record.title} />
+          <SocialShare title={record.title} />
           {certificate && (
             <Button asChild variant="outline" className="gap-2">
               <Link href={`/certificates/${certificate.id}`}>

@@ -10,6 +10,9 @@ const columns = [
       { href: "/leaderboards", label: "Leaderboards" },
       { href: "/live-attempts", label: "Live Attempts" },
       { href: "/record-wall", label: "Record Wall" },
+      { href: "/passport", label: "Record Passport" },
+      { href: "/certificates", label: "Certificates" },
+      { href: "/awards", label: "RBWR Awards" },
     ],
   },
   {
@@ -17,7 +20,7 @@ const columns = [
     links: [
       { href: "/break-a-record", label: "Break a Record" },
       { href: "/create-a-record", label: "Create a Record" },
-      { href: "/adjudicators", label: "Become an Adjudicator" },
+      { href: "/adjudicators/apply", label: "Become an Adjudicator" },
       { href: "/sign-in", label: "Sign In" },
     ],
   },

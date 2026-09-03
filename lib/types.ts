@@ -168,8 +168,9 @@ export type ApplicationStatus =
   | "evidence_submitted"
   | "under_verification"
   | "verified"
-  | "rejected"
-  | "appeal";
+  | "not_verified"
+  | "appeal"
+  | "withdrawn";
 
 export const APPLICATION_STAGES: ApplicationStatus[] = [
   "submitted",
@@ -193,8 +194,9 @@ export const APPLICATION_STATUS_LABELS: Record<ApplicationStatus, string> = {
   evidence_submitted: "Evidence Submitted",
   under_verification: "Under Verification",
   verified: "Verified",
-  rejected: "Rejected",
+  not_verified: "Not Verified",
   appeal: "Under Appeal",
+  withdrawn: "Withdrawn",
 };
 
 export type TimelineEvent = {

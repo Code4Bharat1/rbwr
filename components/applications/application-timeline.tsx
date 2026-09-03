@@ -7,6 +7,8 @@ import {
 import { Timeline, TimelineStep } from "@/components/shared/timeline";
 import { formatDateShort } from "@/lib/format";
 
+const TERMINAL_STATUSES: ApplicationStatus[] = ["verified", "not_verified", "appeal", "withdrawn"];
+
 function buildSteps(app: Application, effectiveStatus: ApplicationStatus): TimelineStep[] {
   const isOverridden = effectiveStatus !== app.status;
 
@@ -19,7 +21,7 @@ function buildSteps(app: Application, effectiveStatus: ApplicationStatus): Timel
       documents: t.documents,
       state: i === app.timeline.length - 1 ? "current" : "done",
     }));
-    const isTerminal = app.status === "verified" || app.status === "rejected" || app.status === "appeal";
+    const isTerminal = TERMINAL_STATUSES.includes(app.status);
     if (!isTerminal) {
       const lastStageIndex = APPLICATION_STAGES.indexOf(app.status);
       APPLICATION_STAGES.slice(lastStageIndex + 1).forEach((stage) => {
@@ -30,8 +32,10 @@ function buildSteps(app: Application, effectiveStatus: ApplicationStatus): Timel
     if (steps.length > 0 && !isTerminal) {
       const lastRealIndex = app.timeline.length - 1;
       steps[lastRealIndex].state = "current";
-    } else if (steps.length > 0 && app.status === "rejected") {
+    } else if (steps.length > 0 && app.status === "not_verified") {
       steps[steps.length - 1].state = "rejected";
+    } else if (steps.length > 0 && app.status === "withdrawn") {
+      steps[steps.length - 1].state = "withdrawn";
     }
     return steps;
   }
@@ -41,13 +45,13 @@ function buildSteps(app: Application, effectiveStatus: ApplicationStatus): Timel
   const steps: TimelineStep[] = [];
 
   if (effIndex === -1) {
-    // rejected or appeal: show full normal flow as done, then branch.
+    // not_verified, appeal, or withdrawn: show full normal flow as done, then branch.
     APPLICATION_STAGES.forEach((stage) => {
       steps.push({ label: APPLICATION_STATUS_LABELS[stage], state: "done", actor: "Demo Simulation" });
     });
-    if (effectiveStatus === "rejected" || effectiveStatus === "appeal") {
+    if (effectiveStatus === "not_verified" || effectiveStatus === "appeal") {
       steps.push({
-        label: "Rejected",
+        label: "Not Verified",
         state: "rejected",
         actor: "Demo Simulation",
         notes: "(Demo) Status set via Switch Demo Status control.",
@@ -59,6 +63,14 @@ function buildSteps(app: Application, effectiveStatus: ApplicationStatus): Timel
         state: "current",
         actor: "Demo Simulation",
         notes: "(Demo) Applicant has requested a re-review.",
+      });
+    }
+    if (effectiveStatus === "withdrawn") {
+      steps.push({
+        label: "Withdrawn",
+        state: "withdrawn",
+        actor: "Demo Simulation",
+        notes: "(Demo) Applicant withdrew this application.",
       });
     }
   } else {

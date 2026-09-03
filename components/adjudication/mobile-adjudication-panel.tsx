@@ -6,7 +6,9 @@ import {
   Camera,
   CheckCircle2,
   FileUp,
+  MapPin,
   Pause,
+  PenLine,
   Play,
   Square,
   UserPlus,
@@ -16,7 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Attempt, ChecklistState, Witness } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 function formatElapsed(seconds: number) {
   const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
@@ -61,6 +62,8 @@ export function MobileAdjudicationPanel({
   const [newWitness, setNewWitness] = useState({ name: "", role: "" });
   const [evidenceLog, setEvidenceLog] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(isCompleted);
+  const [location, setLocation] = useState<string | null>(isCompleted ? "Captured at attempt start" : null);
+  const [locating, setLocating] = useState(false);
 
   useEffect(() => {
     if (!running) return;
@@ -83,6 +86,33 @@ export function MobileAdjudicationPanel({
       { id: `w-live-${w.length}`, attemptId: attempt.id, name: newWitness.name, contact: "", role: newWitness.role || "Witness", signed: false },
     ]);
     setNewWitness({ name: "", role: "" });
+  }
+
+  function collectSignature(id: string) {
+    setWitnesses((w) => w.map((wit) => (wit.id === id ? { ...wit, signed: true } : wit)));
+    toast.success("Witness signature collected");
+  }
+
+  function captureLocation() {
+    setLocating(true);
+    if (typeof navigator !== "undefined" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setLocation(`${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)} (±${Math.round(pos.coords.accuracy)}m)`);
+          setLocating(false);
+          toast.success("GPS location captured");
+        },
+        () => {
+          setLocation(`${attempt.venue} — GPS unavailable, location logged manually`);
+          setLocating(false);
+          toast("Location permission denied — logged venue name instead");
+        },
+        { timeout: 6000 }
+      );
+    } else {
+      setLocation(`${attempt.venue} — GPS unavailable, location logged manually`);
+      setLocating(false);
+    }
   }
 
   return (
@@ -146,6 +176,19 @@ export function MobileAdjudicationPanel({
           )}
         </section>
 
+        {/* GPS / Location */}
+        <section className="mt-4 rounded-xl border border-border p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Location</p>
+          <div className="mt-2 flex items-center justify-between gap-2">
+            <p className="min-w-0 flex-1 truncate text-sm text-foreground/80">
+              {location ?? "No location captured yet"}
+            </p>
+            <Button size="sm" variant="outline" className="shrink-0 gap-1.5" disabled={locked || locating} onClick={captureLocation}>
+              <MapPin className="h-3.5 w-3.5" /> {locating ? "Locating…" : "Capture GPS"}
+            </Button>
+          </div>
+        </section>
+
         {/* Participant Count */}
         <section className="mt-5 rounded-xl border border-border p-4 text-center">
           <Input
@@ -180,9 +223,18 @@ export function MobileAdjudicationPanel({
             {witnesses.map((w) => (
               <li key={w.id} className="flex items-center justify-between rounded-lg bg-secondary/60 px-3 py-2 text-sm">
                 <span>{w.name} <span className="text-xs text-muted-foreground">— {w.role}</span></span>
-                <span className={cn("text-xs", w.signed ? "text-verified" : "text-pending")}>
-                  {w.signed ? "Signed" : "Pending"}
-                </span>
+                {w.signed ? (
+                  <span className="text-xs text-verified">Signed</span>
+                ) : locked ? (
+                  <span className="text-xs text-pending">Pending</span>
+                ) : (
+                  <button
+                    onClick={() => collectSignature(w.id)}
+                    className="flex items-center gap-1 text-xs font-medium text-royal hover:underline"
+                  >
+                    <PenLine className="h-3 w-3" /> Collect Signature
+                  </button>
+                )}
               </li>
             ))}
           </ul>

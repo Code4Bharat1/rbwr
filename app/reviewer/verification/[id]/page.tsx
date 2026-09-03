@@ -46,7 +46,7 @@ export default function VerificationDetailPage({ params }: { params: Promise<{ i
   const currentStageIndex = effectiveStatus === "verified" ? 5 : 4;
   const allChecked = Object.values(checklist).every(Boolean);
 
-  function decide(status: "verified" | "evidence_submitted" | "rejected", message: string) {
+  function decide(status: "verified" | "evidence_submitted" | "not_verified", message: string) {
     setApplicationStatus(application!.id, status);
     toast.success(message);
   }
@@ -122,9 +122,9 @@ export default function VerificationDetailPage({ params }: { params: Promise<{ i
           <Button
             variant="destructive"
             className="gap-1.5"
-            onClick={() => decide("rejected", "Record application rejected")}
+            onClick={() => decide("not_verified", "Record application marked Not Verified")}
           >
-            <XCircle className="h-4 w-4" /> Reject Record
+            <XCircle className="h-4 w-4" /> Not Verified
           </Button>
           {effectiveStatus === "verified" && record && (
             <p className="mt-2 text-sm text-verified">

@@ -47,11 +47,11 @@ export default function AppealsPage() {
                       size="sm"
                       variant="destructive"
                       onClick={() => {
-                        setApplicationStatus(app.id, "rejected");
-                        toast("Appeal denied — original rejection upheld");
+                        setApplicationStatus(app.id, "not_verified");
+                        toast("Appeal denied — original decision upheld");
                       }}
                     >
-                      Uphold Rejection
+                      Uphold Not Verified
                     </Button>
                     <Link href={`/applications/${app.id}`} className="ml-auto self-center text-sm text-royal hover:underline">
                       View application →

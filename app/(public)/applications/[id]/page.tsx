@@ -7,6 +7,7 @@ import { useApplicationById } from "@/hooks/use-application";
 import { useApplicationStatus } from "@/hooks/use-application-status";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { SwitchDemoStatus } from "@/components/applications/switch-demo-status";
+import { ApplicantActions } from "@/components/applications/applicant-actions";
 import { ApplicationTimeline } from "@/components/applications/application-timeline";
 import { getUser } from "@/lib/data/users";
 import { getRecord } from "@/lib/data/records";
@@ -53,7 +54,11 @@ export default function ApplicationTrackingPage({ params }: { params: Promise<{ 
         <StatusBadge status={effectiveStatus} className="text-sm" />
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <ApplicantActions application={application} effectiveStatus={effectiveStatus} />
+      </div>
+
+      <div className="mt-4">
         <SwitchDemoStatus application={application} />
       </div>
 

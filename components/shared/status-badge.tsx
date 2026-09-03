@@ -11,8 +11,9 @@ const palette: Record<ApplicationStatus, string> = {
   evidence_submitted: "bg-gold/15 text-gold-deep border-gold/30",
   under_verification: "bg-pending/10 text-pending border-pending/25",
   verified: "bg-verified/10 text-verified border-verified/25",
-  rejected: "bg-live/10 text-live border-live/25",
+  not_verified: "bg-live/10 text-live border-live/25",
   appeal: "bg-orange-warm/10 text-orange-warm border-orange-warm/25",
+  withdrawn: "bg-secondary text-muted-foreground border-border",
 };
 
 export function StatusBadge({ status, className }: { status: ApplicationStatus; className?: string }) {

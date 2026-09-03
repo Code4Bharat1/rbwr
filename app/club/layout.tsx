@@ -15,7 +15,7 @@ const navSections = [
 
 export default function ClubLayout({ children }: { children: React.ReactNode }) {
   return (
-    <DashboardShell portalLabel="Club Portal" navSections={navSections}>
+    <DashboardShell portalLabel="Club Portal" navSections={navSections} requiredRoles={["club-admin"]}>
       {children}
     </DashboardShell>
   );

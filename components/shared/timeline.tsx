@@ -1,7 +1,7 @@
-import { Check, FileText, X } from "lucide-react";
+import { Check, FileText, Minus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type TimelineStepState = "done" | "current" | "upcoming" | "rejected";
+export type TimelineStepState = "done" | "current" | "upcoming" | "rejected" | "withdrawn";
 
 export type TimelineStep = {
   label: string;
@@ -33,11 +33,13 @@ export function Timeline({ steps, className }: { steps: TimelineStep[]; classNam
                 step.state === "done" && "border-royal bg-royal text-white",
                 step.state === "current" && "border-gold bg-gold text-navy-deep",
                 step.state === "upcoming" && "border-border bg-background text-muted-foreground",
-                step.state === "rejected" && "border-live bg-live text-white"
+                step.state === "rejected" && "border-live bg-live text-white",
+                step.state === "withdrawn" && "border-slate-400 bg-slate-400 text-white"
               )}
             >
               {step.state === "done" && <Check className="h-4 w-4" />}
               {step.state === "rejected" && <X className="h-4 w-4" />}
+              {step.state === "withdrawn" && <Minus className="h-4 w-4" />}
               {(step.state === "current" || step.state === "upcoming") && (
                 <span className="h-2 w-2 rounded-full bg-current" />
               )}

@@ -14,7 +14,7 @@ const navSections = [
 
 export default function DistrictLayout({ children }: { children: React.ReactNode }) {
   return (
-    <DashboardShell portalLabel="District Portal" navSections={navSections}>
+    <DashboardShell portalLabel="District Portal" navSections={navSections} requiredRoles={["district-admin"]}>
       {children}
     </DashboardShell>
   );

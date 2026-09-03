@@ -13,7 +13,7 @@ import { useDemoStore } from "@/lib/store/use-demo-store";
 import { APPLICATION_STAGES, APPLICATION_STATUS_LABELS, Application, ApplicationStatus } from "@/lib/types";
 import { toast } from "sonner";
 
-const ALL_STATUSES: ApplicationStatus[] = [...APPLICATION_STAGES, "rejected", "appeal"];
+const ALL_STATUSES: ApplicationStatus[] = [...APPLICATION_STAGES, "not_verified", "appeal", "withdrawn"];
 
 export function SwitchDemoStatus({ application }: { application: Application }) {
   const override = useDemoStore((s) => s.applicationStatusOverrides[application.id]);

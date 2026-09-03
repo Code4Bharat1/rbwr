@@ -66,7 +66,7 @@ export default function PlatformFlowPage() {
           </div>
           <div className="flex flex-col items-center gap-0">
             <VLine className="h-6" />
-            <FlowNode id="pf-rejected" label="REJECTED" href="/reviewer/appeals" variant="critical" />
+            <FlowNode id="pf-rejected" label="NOT VERIFIED" href="/reviewer/appeals" variant="critical" />
             <VLine className="h-6" />
             <FlowNode id="pf-appeal" label="APPEAL" href="/reviewer/appeals" variant="critical" />
           </div>

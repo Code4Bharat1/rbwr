@@ -66,7 +66,7 @@ export default function AdjudicatorsPage() {
           Complete our certification program and join the global network responsible for verifying the world's most extraordinary achievements.
         </p>
         <Button asChild size="lg" className="bg-gold-gradient text-navy-deep hover:opacity-90">
-          <Link href="/contact">Apply to Become an Adjudicator</Link>
+          <Link href="/adjudicators/apply">Apply to Become an Adjudicator</Link>
         </Button>
       </div>
     </div>
