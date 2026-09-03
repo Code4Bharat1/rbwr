@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { ApplicationStatus, Role } from "@/lib/types";
+import { Application, ApplicationStatus, Role } from "@/lib/types";
 
 /** Which mock user each role "logs in" as from the dummy Sign In screen. */
 export const ROLE_DEFAULT_USER: Record<Role, string> = {
@@ -21,12 +21,14 @@ type DemoState = {
   viewerUserId: string | null;
   applicationStatusOverrides: Record<string, ApplicationStatus>;
   visitedJourneyNodes: string[];
+  createdApplications: Application[];
   hasHydrated: boolean;
 
   signIn: (role: Role) => void;
   signOut: () => void;
   setApplicationStatus: (appId: string, status: ApplicationStatus) => void;
   markJourneyNodeVisited: (nodeId: string) => void;
+  addCreatedApplication: (app: Application) => void;
   resetDemoState: () => void;
   setHasHydrated: (v: boolean) => void;
 };
@@ -38,6 +40,7 @@ export const useDemoStore = create<DemoState>()(
       viewerUserId: null,
       applicationStatusOverrides: {},
       visitedJourneyNodes: [],
+      createdApplications: [],
       hasHydrated: false,
 
       signIn: (role) =>
@@ -57,12 +60,16 @@ export const useDemoStore = create<DemoState>()(
             : { visitedJourneyNodes: [...state.visitedJourneyNodes, nodeId] }
         ),
 
+      addCreatedApplication: (app) =>
+        set((state) => ({ createdApplications: [...state.createdApplications, app] })),
+
       resetDemoState: () =>
         set({
           viewerRole: null,
           viewerUserId: null,
           applicationStatusOverrides: {},
           visitedJourneyNodes: [],
+          createdApplications: [],
         }),
 
       setHasHydrated: (v) => set({ hasHydrated: v }),
