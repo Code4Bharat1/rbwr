@@ -2,9 +2,11 @@ import {
   applications,
   attempts,
   certificates,
+  cities,
   countries,
   getClub,
   getCountry,
+  getDistrict,
   getUser,
   records,
 } from "@/lib/data";
@@ -69,6 +71,11 @@ export function getApplicationsForUser(userId: string) {
 
 export function getAttemptsForAdjudicator(userId: string) {
   return attempts.filter((a) => a.adjudicatorId === userId);
+}
+
+export function getAttemptsForApplicant(userId: string) {
+  const myAppIds = new Set(applications.filter((a) => a.applicantUserId === userId).map((a) => a.id));
+  return attempts.filter((a) => myAppIds.has(a.applicationId));
 }
 
 export function getRecordsForClub(clubId: string) {
@@ -160,6 +167,32 @@ export function getCountryLeaderboard(): LeaderboardEntry[] {
       return {
         id: countryId,
         name: country ? `${country.flag} ${country.name}` : countryId,
+        subtitle: `${recs.length} records`,
+        recordCount: recs.length,
+        points: pointsFor(recs),
+      };
+    })
+    .sort((a, b) => b.points - a.points);
+}
+
+function districtIdForRecord(r: WorldRecord): string | undefined {
+  if (r.holderClubId) return getClub(r.holderClubId)?.districtId;
+  return cities.find((c) => c.id === r.cityId)?.districtId;
+}
+
+export function getDistrictLeaderboard(): LeaderboardEntry[] {
+  const byDistrict = new Map<string, WorldRecord[]>();
+  for (const r of records) {
+    const districtId = districtIdForRecord(r);
+    if (!districtId) continue;
+    byDistrict.set(districtId, [...(byDistrict.get(districtId) ?? []), r]);
+  }
+  return [...byDistrict.entries()]
+    .map(([districtId, recs]) => {
+      const district = getDistrict(districtId);
+      return {
+        id: districtId,
+        name: district ? `District ${district.number} — ${district.name}` : districtId,
         subtitle: `${recs.length} records`,
         recordCount: recs.length,
         points: pointsFor(recs),
