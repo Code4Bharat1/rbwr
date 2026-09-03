@@ -82,6 +82,10 @@ export function getRecordsForClub(clubId: string) {
   return records.filter((r) => r.holderClubId === clubId);
 }
 
+export function getRecordsForDistrict(districtId: string) {
+  return records.filter((r) => districtIdForRecord(r) === districtId);
+}
+
 export type LeaderboardEntry = {
   id: string;
   name: string;
@@ -175,7 +179,7 @@ export function getCountryLeaderboard(): LeaderboardEntry[] {
     .sort((a, b) => b.points - a.points);
 }
 
-function districtIdForRecord(r: WorldRecord): string | undefined {
+export function districtIdForRecord(r: WorldRecord): string | undefined {
   if (r.holderClubId) return getClub(r.holderClubId)?.districtId;
   return cities.find((c) => c.id === r.cityId)?.districtId;
 }
