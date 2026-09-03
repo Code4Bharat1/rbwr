@@ -25,10 +25,10 @@ export function StatusDonut({ title, data }: { title: string; data: StatusDonutD
     <div className="rounded-2xl border border-border bg-card p-5">
       <h3 className="font-display text-sm font-semibold text-navy">{title}</h3>
       <div className="mt-2 grid grid-cols-1 items-center gap-4 sm:grid-cols-2">
-        <div style={{ height: 220 }}>
-          <ResponsiveContainer width="100%" height="100%">
+        <div className="min-w-0 w-full" style={{ height: 220 }}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={0}>
             <PieChart>
-              <Pie data={data} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>
+              <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
                 {data.map((d, i) => (
                   <Cell key={i} fill={roleColor[d.role]} stroke={CHART.surface} strokeWidth={2} />
                 ))}
