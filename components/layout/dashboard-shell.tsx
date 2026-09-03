@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, LogOut, Trophy, type LucideIcon } from "lucide-react";
+import { ChevronRight, LogOut, Trophy } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -28,20 +28,16 @@ import { ROLE_LABELS } from "@/lib/types";
 
 export type NavSection = {
   title?: string;
-  items: { href: string; label: string; icon: LucideIcon }[];
+  items: { href: string; label: string; icon: React.ReactNode }[];
 };
 
 export function DashboardShell({
   portalLabel,
   navSections,
-  pageTitle,
-  breadcrumbs,
   children,
 }: {
   portalLabel: string;
   navSections: NavSection[];
-  pageTitle: string;
-  breadcrumbs?: { label: string; href?: string }[];
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -77,7 +73,7 @@ export function DashboardShell({
                       <SidebarMenuItem key={item.href}>
                         <SidebarMenuButton asChild isActive={active} tooltip={item.label}>
                           <Link href={item.href}>
-                            <item.icon />
+                            {item.icon}
                             <span>{item.label}</span>
                           </Link>
                         </SidebarMenuButton>
@@ -115,18 +111,10 @@ export function DashboardShell({
             <Link href="/" className="hover:text-foreground">
               RBWR
             </Link>
-            {breadcrumbs?.map((b, i) => (
-              <span key={i} className="flex items-center gap-1">
-                <ChevronRight className="h-3.5 w-3.5" />
-                {b.href ? (
-                  <Link href={b.href} className="hover:text-foreground">
-                    {b.label}
-                  </Link>
-                ) : (
-                  <span className="font-medium text-foreground">{b.label}</span>
-                )}
-              </span>
-            ))}
+            <span className="flex items-center gap-1">
+              <ChevronRight className="h-3.5 w-3.5" />
+              <span className="font-medium text-foreground">{portalLabel}</span>
+            </span>
           </nav>
           <div className="flex flex-1 items-center justify-end gap-2 md:flex-none">
             <GlobalSearch />
@@ -134,10 +122,7 @@ export function DashboardShell({
           </div>
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto max-w-7xl">
-            <h1 className="mb-6 font-display text-2xl font-semibold text-navy sm:text-3xl">{pageTitle}</h1>
-            {children}
-          </div>
+          <div className="mx-auto max-w-7xl">{children}</div>
         </main>
       </SidebarInset>
     </SidebarProvider>

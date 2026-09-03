@@ -3,18 +3,9 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { Application, ApplicationStatus, Role } from "@/lib/types";
+import { ROLE_DEFAULT_USER } from "@/lib/demo-config";
 
-/** Which mock user each role "logs in" as from the dummy Sign In screen. */
-export const ROLE_DEFAULT_USER: Record<Role, string> = {
-  participant: "u2",
-  rotarian: "u24",
-  adjudicator: "u1",
-  "club-admin": "u3",
-  "district-admin": "u4",
-  reviewer: "u25",
-  "record-manager": "u10",
-  "super-admin": "u9",
-};
+export { ROLE_DEFAULT_USER };
 
 type DemoState = {
   viewerRole: Role | null;
