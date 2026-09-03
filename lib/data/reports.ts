@@ -1,0 +1,95 @@
+import { AdjudicationReport } from "@/lib/types";
+
+export const adjudicationReports: AdjudicationReport[] = [
+  {
+    id: "rep-01",
+    attemptId: "att-01",
+    adjudicatorId: "u1",
+    checklist: { safetyRequirementsMet: true, timingVerified: true, participantCountVerified: true, evidenceCaptured: true, witnessSignaturesCollected: true },
+    decision: "recommend-verify",
+    notes: "All formation criteria met; aerial and ground reconciliation align within tolerance.",
+    submittedDate: "2026-01-20",
+  },
+  {
+    id: "rep-02",
+    attemptId: "att-02",
+    adjudicatorId: "u1",
+    checklist: { safetyRequirementsMet: false, timingVerified: false, participantCountVerified: false, evidenceCaptured: false, witnessSignaturesCollected: false },
+    decision: "pending",
+    notes: "Attempt not yet conducted; scheduled for 18 Oct 2026.",
+  },
+  {
+    id: "rep-03",
+    attemptId: "att-03",
+    adjudicatorId: "u16",
+    checklist: { safetyRequirementsMet: false, timingVerified: false, participantCountVerified: false, evidenceCaptured: false, witnessSignaturesCollected: false },
+    decision: "pending",
+    notes: "Attempt not yet conducted; adjudicator assignment under conflict-of-interest review.",
+  },
+  {
+    id: "rep-04",
+    attemptId: "att-04",
+    adjudicatorId: "u14",
+    checklist: { safetyRequirementsMet: true, timingVerified: true, participantCountVerified: false, evidenceCaptured: false, witnessSignaturesCollected: false },
+    decision: "pending",
+    notes: "Attempt in progress; final checklist to be completed at conclusion.",
+  },
+  {
+    id: "rep-05",
+    attemptId: "att-05",
+    adjudicatorId: "u21",
+    checklist: { safetyRequirementsMet: true, timingVerified: true, participantCountVerified: true, evidenceCaptured: true, witnessSignaturesCollected: true },
+    decision: "recommend-verify",
+    notes: "Wristband and headcount reconciliation matched within 1%.",
+    submittedDate: "2026-08-21",
+  },
+  {
+    id: "rep-06",
+    attemptId: "att-06",
+    adjudicatorId: "u8",
+    checklist: { safetyRequirementsMet: true, timingVerified: true, participantCountVerified: true, evidenceCaptured: true, witnessSignaturesCollected: true },
+    decision: "recommend-verify",
+    notes: "Blood-bank intake logs reconcile cleanly across all 9 sites.",
+    submittedDate: "2026-08-11",
+  },
+  {
+    id: "rep-07",
+    attemptId: "att-07",
+    adjudicatorId: "u12",
+    checklist: { safetyRequirementsMet: true, timingVerified: true, participantCountVerified: true, evidenceCaptured: true, witnessSignaturesCollected: true },
+    decision: "recommend-verify",
+    notes: "Distribution log and GPS tags confirm total; recommend verification.",
+    submittedDate: "2026-07-14",
+  },
+  {
+    id: "rep-08",
+    attemptId: "att-08",
+    adjudicatorId: "u22",
+    checklist: { safetyRequirementsMet: true, timingVerified: true, participantCountVerified: true, evidenceCaptured: true, witnessSignaturesCollected: true },
+    decision: "recommend-verify",
+    notes: "Telemetry sustained across full 6-hour window; sensor calibration certificate on file.",
+    submittedDate: "2026-02-03",
+  },
+  {
+    id: "rep-09",
+    attemptId: "att-09",
+    adjudicatorId: "u1",
+    checklist: { safetyRequirementsMet: true, timingVerified: true, participantCountVerified: false, evidenceCaptured: true, witnessSignaturesCollected: true },
+    decision: "recommend-reject",
+    notes: "Verified aerial count (6,140) did not meet the 8,000 participant threshold declared in the application.",
+    submittedDate: "2026-06-04",
+  },
+  {
+    id: "rep-10",
+    attemptId: "att-10",
+    adjudicatorId: "u12",
+    checklist: { safetyRequirementsMet: true, timingVerified: true, participantCountVerified: false, evidenceCaptured: true, witnessSignaturesCollected: false },
+    decision: "recommend-reject",
+    notes: "Discrepancy between clinic sign-in sheets and screening logs; recommend rejection pending appeal review.",
+    submittedDate: "2026-05-20",
+  },
+];
+
+export function getReportForAttempt(attemptId: string) {
+  return adjudicationReports.find((r) => r.attemptId === attemptId);
+}
