@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalendarClock, MapPin, Radio } from "lucide-react";
+import { CalendarClock, Check, MapPin, PenLine, Radio } from "lucide-react";
 import { Attempt } from "@/lib/types";
 import { getAttemptTitle } from "@/lib/selectors";
 import { getCity, getCountry } from "@/lib/data/geo";
@@ -7,18 +7,26 @@ import { getUser } from "@/lib/data/users";
 import { formatDateShort } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
+const statusMeta = {
+  live: { label: "Live Now", icon: Radio, badgeClass: "bg-live text-white", cardClass: "border-live/30 bg-live/[0.04]" },
+  scheduled: { label: "Upcoming", icon: CalendarClock, badgeClass: "bg-gold/15 text-gold-deep", cardClass: "border-border bg-card" },
+  completed: { label: "Completed", icon: Check, badgeClass: "bg-verified/10 text-verified", cardClass: "border-border bg-card" },
+  draft: { label: "Draft", icon: PenLine, badgeClass: "bg-secondary text-secondary-foreground", cardClass: "border-border bg-card" },
+};
+
 export function AttemptCard({ attempt, className }: { attempt: Attempt; className?: string }) {
   const title = getAttemptTitle(attempt);
   const city = getCity(attempt.cityId);
   const country = getCountry(attempt.countryId);
-  const isLive = attempt.status === "live";
+  const meta = statusMeta[attempt.status];
+  const Icon = meta.icon;
 
   return (
     <Link
       href={`/adjudicator/attempts/${attempt.id}`}
       className={cn(
         "flex flex-col gap-3 rounded-2xl border p-5 transition-all hover:-translate-y-1 hover:shadow-lg",
-        isLive ? "border-live/30 bg-live/[0.04]" : "border-border bg-card",
+        meta.cardClass,
         className
       )}
     >
@@ -26,11 +34,11 @@ export function AttemptCard({ attempt, className }: { attempt: Attempt; classNam
         <span
           className={cn(
             "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
-            isLive ? "bg-live text-white" : "bg-gold/15 text-gold-deep"
+            meta.badgeClass
           )}
         >
-          {isLive ? <Radio className="h-3 w-3 animate-pulse" /> : <CalendarClock className="h-3 w-3" />}
-          {isLive ? "Live Now" : "Upcoming"}
+          <Icon className={cn("h-3 w-3", attempt.status === "live" && "animate-pulse")} />
+          {meta.label}
         </span>
         <span className="text-xs text-muted-foreground">{formatDateShort(attempt.date)}</span>
       </div>
