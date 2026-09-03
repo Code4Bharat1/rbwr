@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RBWR — Rotary Book of World Records
+
+An interactive, high-fidelity Next.js prototype of a global record-verification
+platform — built for stakeholder and investor presentations. Every screen uses
+real, relationally-consistent mock data and genuine client-side interactivity
+(wizards, status simulation, live timers, checklists, conflict-of-interest
+checks) — there is no backend, no database, and no real authentication.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to explore it
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Sign In** (`/sign-in`) is a dummy login — click any of the 8 role panels to
+  instantly view the platform as that persona. Switch roles anytime from the
+  **Demo Control Center** (floating button, bottom-right).
+- **Explore Prototype** (header button) opens the full clickable journey map;
+  **Platform Flow** (`/platform-flow`) shows it as one connected diagram.
+- **Presentation Mode** (`/presentation`) is a 17-slide, full-bleed walkthrough
+  for live demos — arrow keys to navigate, Esc to exit.
+- Any application's **Switch Demo Status** control lets you preview every
+  stage of its lifecycle on demand (Submitted → ... → Verified/Rejected/Appeal).
 
-## Learn More
+## Tech stack
 
-To learn more about Next.js, take a look at the following resources:
+Next.js (App Router) · TypeScript · Tailwind CSS v4 · shadcn/ui · Lucide icons ·
+Framer Motion · Recharts · Zustand (persisted demo state).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` — routes, grouped by portal: public site (`(public)`), participant
+  (`dashboard`), adjudicator, club, district, reviewer, and admin.
+- `components/` — shared UI, plus feature folders (records, applications,
+  adjudication, certificates, charts, wizard, flow, layout).
+- `lib/data/` — the mock data graph (users, records, applications, attempts,
+  evidence, certificates, etc.), all cross-referenced by id.
+- `lib/store/use-demo-store.ts` — the client-side demo state engine (current
+  role, application status overrides, journey progress).
