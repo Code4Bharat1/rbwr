@@ -2,8 +2,8 @@ import { Role } from "@/lib/types";
 
 /** Which mock user each role "logs in" as from the dummy Sign In screen. */
 export const ROLE_DEFAULT_USER: Record<Role, string> = {
-  participant: "u2",
-  rotarian: "u24",
+  participant: "u15",
+  rotarian: "u28",
   adjudicator: "u1",
   "club-admin": "u3",
   "district-admin": "u4",
