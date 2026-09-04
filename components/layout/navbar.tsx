@@ -20,14 +20,7 @@ import { getUser } from "@/lib/data/users";
 import { ROLE_HOME, ROLE_LABELS } from "@/lib/types";
 import { UserAvatar } from "@/components/shared/user-avatar";
 
-const primaryLinks = [
-  { href: "/records", label: "Explore Records" },
-  { href: "/break-a-record", label: "Break a Record" },
-  { href: "/create-a-record", label: "Create a Record" },
-  { href: "/record-battles", label: "Record Battles" },
-  { href: "/leaderboards", label: "Leaderboards" },
-  { href: "/live-attempts", label: "Live Attempts" },
-];
+const primaryLinks = [{ href: "/records", label: "Explore Records" }];
 
 const moreLinks = [
   { href: "/adjudicators", label: "Adjudicators" },
