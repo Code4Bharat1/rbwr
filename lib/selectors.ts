@@ -10,7 +10,7 @@ import {
   getUser,
   records,
 } from "@/lib/data";
-import { Application, Attempt, WorldRecord } from "@/lib/types";
+import { Application, ApplicationStatus, Attempt, WorldRecord } from "@/lib/types";
 
 export function getApplicationForAttempt(attempt: Attempt): Application | undefined {
   return applications.find((a) => a.id === attempt.applicationId);
@@ -25,6 +25,33 @@ export function getAttemptTitle(attempt: Attempt): string {
   const app = getApplicationForAttempt(attempt);
   const record = getRecordForApplication(app);
   return record?.title ?? app?.proposedTitle ?? "Untitled Attempt";
+}
+
+/**
+ * An adjudicator is conflicted when they belong to the same club that
+ * currently holds the record being challenged (SRS §9: an adjudicator must
+ * not adjudicate an event they organised or have an interest in).
+ */
+export function isAdjudicatorConflicted(
+  adjudicatorUserId: string,
+  application: Application,
+  record?: WorldRecord
+): boolean {
+  if (!record?.holderClubId || application.type !== "break") return false;
+  const adjudicator = getUser(adjudicatorUserId);
+  return Boolean(adjudicator?.clubId && adjudicator.clubId === record.holderClubId);
+}
+
+const OPEN_ASSIGNMENT_STATUSES: ApplicationStatus[] = [
+  "scheduled",
+  "attempt_live",
+  "evidence_submitted",
+  "under_verification",
+];
+
+/** Applications with a scheduled or in-flight attempt that still needs (or may need to change) an adjudicator. */
+export function getAssignmentQueue(): Application[] {
+  return applications.filter((a) => a.attemptId && OPEN_ASSIGNMENT_STATUSES.includes(a.status));
 }
 
 export function getLiveAttempts() {

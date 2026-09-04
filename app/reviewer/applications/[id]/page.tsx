@@ -1,30 +1,23 @@
 "use client";
 
-import { use, useMemo, useState } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { AlertTriangle, CalendarClock, CheckCircle2, ScrollText, ShieldAlert, XCircle } from "lucide-react";
+import { AlertTriangle, ArrowRight, CalendarClock, CheckCircle2, ScrollText, ShieldAlert, ShieldCheck, XCircle } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { ApplicationTimeline } from "@/components/applications/application-timeline";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { UserAvatar } from "@/components/shared/user-avatar";
 import { useApplicationById } from "@/hooks/use-application";
 import { useApplicationStatus } from "@/hooks/use-application-status";
 import { useDemoStore } from "@/lib/store/use-demo-store";
 import { getUser } from "@/lib/data/users";
 import { getRecord } from "@/lib/data/records";
-import { getClub } from "@/lib/data/geo";
 import { getCategory } from "@/lib/data/categories";
 import { getAttempt } from "@/lib/data/attempts";
-import { adjudicatorProfiles } from "@/lib/data/adjudicators";
+import { isAdjudicatorConflicted } from "@/lib/selectors";
 import { formatDate, formatDateShort } from "@/lib/format";
 
 export default function ApplicationReviewPage({ params }: { params: Promise<{ id: string }> }) {
@@ -36,17 +29,12 @@ export default function ApplicationReviewPage({ params }: { params: Promise<{ id
   const [savedNotes, setSavedNotes] = useState<string[]>([]);
 
   const attempt = application?.attemptId ? getAttempt(application.attemptId) : undefined;
-  const [assignedAdjudicatorId, setAssignedAdjudicatorId] = useState(attempt?.adjudicatorId ?? "");
 
   const record = application?.recordId ? getRecord(application.recordId) : undefined;
   const category = application ? getCategory(application.categoryId) : undefined;
   const applicant = application ? getUser(application.applicantUserId) : undefined;
-
-  const conflict = useMemo(() => {
-    if (!application || !record?.holderClubId || application.type !== "break") return false;
-    const adjudicator = getUser(assignedAdjudicatorId);
-    return Boolean(adjudicator?.clubId && adjudicator.clubId === record.holderClubId);
-  }, [application, record, assignedAdjudicatorId]);
+  const assignedAdjudicator = attempt ? getUser(attempt.adjudicatorId) : undefined;
+  const conflict = application && attempt ? isAdjudicatorConflicted(attempt.adjudicatorId, application, record) : false;
 
   if (!application) {
     return (
@@ -160,44 +148,30 @@ export default function ApplicationReviewPage({ params }: { params: Promise<{ id
           )}
 
           {attempt && (
-            <div className="rounded-2xl border border-border bg-card p-5">
-              <h3 className="font-display text-base font-semibold text-navy">Adjudicator Assignment</h3>
-              <Select value={assignedAdjudicatorId} onValueChange={setAssignedAdjudicatorId}>
-                <SelectTrigger className="mt-3 w-full"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {adjudicatorProfiles.map((p) => {
-                    const u = getUser(p.userId)!;
-                    return <SelectItem key={p.userId} value={p.userId}>{u.name} — {p.certificationLevel}</SelectItem>;
-                  })}
-                </SelectContent>
-              </Select>
-
-              {conflict ? (
-                <div className="mt-3 flex items-start gap-2 rounded-xl border border-live/30 bg-live/5 p-3 text-sm text-live">
-                  <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0" />
-                  <div>
-                    <p className="font-medium">Conflict Check</p>
-                    <p className="mt-0.5">
-                      This adjudicator belongs to the organizing club (
-                      {getClub(getUser(assignedAdjudicatorId)?.clubId ?? "")?.name}). Assignment requires
-                      another adjudicator.
+            <Link
+              href={`/reviewer/assignments/${application.id}`}
+              className="group rounded-2xl border border-border bg-card p-5 transition-colors hover:border-royal/40"
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="font-display text-base font-semibold text-navy">Adjudicator Assignment</h3>
+                <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+              </div>
+              {assignedAdjudicator ? (
+                <div className="mt-3 flex items-center gap-2.5">
+                  <UserAvatar initials={assignedAdjudicator.initials} color={assignedAdjudicator.avatarColor} size="sm" />
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-navy">{assignedAdjudicator.name}</p>
+                    <p className={conflict ? "flex items-center gap-1 text-xs text-live" : "flex items-center gap-1 text-xs text-verified"}>
+                      {conflict ? <ShieldAlert className="h-3 w-3" /> : <ShieldCheck className="h-3 w-3" />}
+                      {conflict ? "Conflict — needs reassignment" : "No conflict of interest"}
                     </p>
                   </div>
                 </div>
               ) : (
-                <p className="mt-3 flex items-center gap-1.5 text-sm text-verified">
-                  <CheckCircle2 className="h-4 w-4" /> No conflict of interest detected.
-                </p>
+                <p className="mt-3 text-sm text-muted-foreground">No adjudicator assigned yet</p>
               )}
-
-              <Button
-                className="mt-3 w-full bg-navy-gradient text-white hover:opacity-90"
-                disabled={conflict}
-                onClick={() => toast.success(`${getUser(assignedAdjudicatorId)?.name} assigned to this attempt`)}
-              >
-                Assign Adjudicator
-              </Button>
-            </div>
+              <p className="mt-3 text-xs font-medium text-royal">Manage assignment →</p>
+            </Link>
           )}
         </div>
       </div>

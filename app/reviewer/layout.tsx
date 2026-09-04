@@ -4,6 +4,7 @@ import {
   Inbox,
   ScrollText,
   ShieldCheck,
+  UserCog,
 } from "lucide-react";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
 
@@ -12,6 +13,7 @@ const navSections = [
     items: [
       { href: "/reviewer", label: "Application Queue", icon: <Inbox /> },
       { href: "/reviewer/guidelines", label: "Guidelines", icon: <ScrollText /> },
+      { href: "/reviewer/assignments", label: "Adjudicator Assignment", icon: <UserCog /> },
       { href: "/reviewer/evidence", label: "Evidence Review", icon: <FileSearch /> },
       { href: "/reviewer/verification", label: "Verification", icon: <ShieldCheck /> },
       { href: "/reviewer/appeals", label: "Appeals", icon: <AlertTriangle /> },

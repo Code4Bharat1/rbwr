@@ -14,7 +14,7 @@ export const journeyNodes: JourneyNode[] = [
   { id: "review", step: 5, title: "RBWR Review", description: "A reviewer triages and approves the incoming application.", href: "/reviewer" },
   { id: "guidelines", step: 6, title: "Guidelines", description: "Official measurement, safety, and evidence guidelines are issued.", href: "/guidelines/cat-mass-formation" },
   { id: "schedule", step: 7, title: "Schedule Attempt", description: "The attempt is scheduled with venue, date, and organizer details.", href: "/reviewer/applications/app-05" },
-  { id: "assign", step: 8, title: "Assign Adjudicator", description: "An adjudicator is assigned, with conflict-of-interest checks.", href: "/reviewer/applications/app-08" },
+  { id: "assign", step: 8, title: "Assign Adjudicator", description: "An adjudicator is assigned, with conflict-of-interest checks.", href: "/reviewer/assignments/app-08" },
   { id: "live", step: 9, title: "Live Attempt", description: "The adjudicator runs the attempt in Mobile Adjudication Mode.", href: "/adjudicator/attempts/att-04" },
   { id: "evidence", step: 10, title: "Evidence Collection", description: "Photos, video, measurements, and witness statements are captured.", href: "/adjudicator/evidence" },
   { id: "report", step: 11, title: "Adjudication Report", description: "The adjudicator files a final checklist and recommendation.", href: "/adjudicator/attempts/att-01" },

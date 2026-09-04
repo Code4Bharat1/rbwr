@@ -43,7 +43,7 @@ export default function PlatformFlowPage() {
         <VLine />
         <FlowNode id="pf-schedule" label="SCHEDULE ATTEMPT" href="/reviewer/applications/app-05" />
         <VLine />
-        <FlowNode id="pf-assign" label="ADJUDICATOR ASSIGNED" href="/reviewer/applications/app-08" />
+        <FlowNode id="pf-assign" label="ADJUDICATOR ASSIGNED" href="/reviewer/assignments/app-08" />
         <VLine />
         <FlowNode id="pf-live" label="LIVE ATTEMPT" href="/adjudicator/attempts/att-04" />
         <VLine />
