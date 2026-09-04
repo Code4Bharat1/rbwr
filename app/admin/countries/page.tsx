@@ -18,7 +18,7 @@ export default function AdminCountriesPage() {
           <tbody className="divide-y divide-border">
             {countries.map((c) => (
               <tr key={c.id}>
-                <td className="px-4 py-3 font-medium">{c.flag} {c.name}</td>
+                <td className="px-4 py-3 font-medium">{c.name}</td>
                 <td className="px-4 py-3 text-muted-foreground">{c.code}</td>
                 <td className="px-4 py-3">{records.filter((r) => r.countryId === c.id).length}</td>
               </tr>

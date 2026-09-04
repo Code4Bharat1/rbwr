@@ -33,7 +33,7 @@ export function RecordCard({ record, className }: { record: WorldRecord; classNa
         <p className="line-clamp-1 text-sm text-muted-foreground">{record.holderName}</p>
         <div className="mt-auto flex items-center justify-between border-t border-border pt-3 text-sm">
           <span className="flex items-center gap-1.5 text-muted-foreground">
-            {country?.flag} {country?.name}
+            {country?.name}
           </span>
           <span className="flex items-center gap-1 font-medium text-royal">
             View Record

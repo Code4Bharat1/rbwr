@@ -90,7 +90,7 @@ export function CreateARecordWizard() {
       venueCountry: "",
       proposedDate: "",
       expectedParticipants: 0,
-      description: `${description}\n\nUniqueness: ${uniqueness}\n\nMeasurement: ${measurementMethod} — Expected result: ${expectedResult}\n\nEquipment: ${equipment}\nWitnesses: ${witnessRequirements}\nSafety: ${safety}`,
+      description: `${description}\n\nUniqueness: ${uniqueness}\n\nMeasurement: ${measurementMethod}. Expected result: ${expectedResult}\n\nEquipment: ${equipment}\nWitnesses: ${witnessRequirements}\nSafety: ${safety}`,
       timeline: [
         {
           stage: "Submitted",
@@ -153,7 +153,7 @@ export function CreateARecordWizard() {
                   <SelectTrigger className="w-full"><SelectValue placeholder="Select a category" /></SelectTrigger>
                   <SelectContent>
                     {categories.map((c) => (
-                      <SelectItem key={c.id} value={c.id}>{c.group} — {c.name}</SelectItem>
+                      <SelectItem key={c.id} value={c.id}>{c.group}: {c.name}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>

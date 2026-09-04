@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Globe } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -58,9 +59,11 @@ export default function LeaderboardsPage() {
         <Select value={countryFilter} onValueChange={setCountryFilter}>
           <SelectTrigger className="w-56"><SelectValue placeholder="Global" /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">🌍 Global</SelectItem>
+            <SelectItem value="all">
+              <span className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> Global</span>
+            </SelectItem>
             {countries.map((c) => (
-              <SelectItem key={c.id} value={c.id}>{c.flag} {c.name}</SelectItem>
+              <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
             ))}
           </SelectContent>
         </Select>

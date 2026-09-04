@@ -39,7 +39,7 @@ export default async function PassportPage({ params }: { params: Promise<{ userI
           <UserAvatar initials={user.initials} color={user.avatarColor} size="xl" />
           <h1 className="font-display text-3xl font-semibold text-white">{user.name}</h1>
           <p className="text-white/70">
-            {city?.name}, {country?.name} {country?.flag}
+            {city?.name}, {country?.name}
             {club && ` · ${club.name}`}
           </p>
           <div className="flex flex-wrap justify-center gap-2">

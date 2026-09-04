@@ -27,7 +27,7 @@ export function JourneySheet() {
         <SheetHeader>
           <SheetTitle className="font-display text-xl">The Complete RBWR Journey</SheetTitle>
           <SheetDescription>
-            Every stage of the record lifecycle, from public discovery to certificate — click any
+            Every stage of the record lifecycle, from public discovery to certificate. Click any
             step to jump straight to that screen.
           </SheetDescription>
         </SheetHeader>

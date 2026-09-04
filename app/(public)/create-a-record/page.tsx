@@ -7,7 +7,7 @@ export default function CreateARecordPage() {
       <SectionHeading
         eyebrow="Create a Record"
         title="Propose a Brand-New Record"
-        description="Define your concept, category, and measurement method — RBWR will check it against the existing catalog."
+        description="Define your concept, category, and measurement method. RBWR will check it against the existing catalog."
       />
       <div className="mt-8">
         <CreateARecordWizard />

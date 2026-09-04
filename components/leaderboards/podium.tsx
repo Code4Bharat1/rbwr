@@ -1,3 +1,4 @@
+import { Medal } from "lucide-react";
 import { LeaderboardEntry } from "@/lib/selectors";
 import { cn } from "@/lib/utils";
 
@@ -16,10 +17,11 @@ export function Podium({ entries }: { entries: LeaderboardEntry[] }) {
 
 function PodiumSpot({ entry, place, height }: { entry?: LeaderboardEntry; place: number; height: string }) {
   if (!entry) return <div className="w-24 sm:w-32" />;
-  const medal = place === 1 ? "🥇" : place === 2 ? "🥈" : "🥉";
+  const medalColor =
+    place === 1 ? "text-gold-deep" : place === 2 ? "text-slate-400" : "text-amber-700";
   return (
     <div className="flex w-24 flex-col items-center gap-2 sm:w-32">
-      <span className="text-3xl">{medal}</span>
+      <Medal className={cn("h-8 w-8", medalColor)} strokeWidth={1.75} />
       <p className="truncate text-center text-sm font-semibold text-navy">{entry.name}</p>
       <p className="text-xs text-muted-foreground">{entry.points} pts</p>
       <div

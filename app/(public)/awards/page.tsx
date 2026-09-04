@@ -40,9 +40,9 @@ const awards2026 = [
 ];
 
 const pastWinners = [
-  { year: 2025, title: "Record of the Year", winner: "Largest Gathering of Community Volunteers in 24 Hours — RC Manhattan" },
-  { year: 2024, title: "Record of the Year", winner: "Largest Simultaneous Beach Clean-Up — RC Sydney Cove" },
-  { year: 2023, title: "Record of the Year", winner: "Largest Tree-Planting Attempt in a Single Day — RC Nairobi Central" },
+  { year: 2025, title: "Record of the Year", winner: "Largest Gathering of Community Volunteers in 24 Hours, RC Manhattan" },
+  { year: 2024, title: "Record of the Year", winner: "Largest Simultaneous Beach Clean-Up, RC Sydney Cove" },
+  { year: 2023, title: "Record of the Year", winner: "Largest Tree-Planting Attempt in a Single Day, RC Nairobi Central" },
 ];
 
 export default function AwardsPage() {

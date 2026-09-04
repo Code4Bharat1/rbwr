@@ -23,7 +23,7 @@ export default function AdjudicatorProfilePage() {
             <h2 className="font-display text-xl font-semibold text-navy">{user.name}</h2>
             <p className="text-sm text-muted-foreground">{user.email}</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              {city?.name}, {country?.name} {country?.flag}
+              {city?.name}, {country?.name}
             </p>
           </div>
         </div>

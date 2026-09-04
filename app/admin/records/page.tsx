@@ -71,7 +71,7 @@ export default function AdminRecordsPage() {
                   <TableCell className="max-w-[200px] truncate font-medium">{r.title}</TableCell>
                   <TableCell className="max-w-[160px] truncate text-muted-foreground">{r.holderName}</TableCell>
                   <TableCell className="text-muted-foreground">{category?.name}</TableCell>
-                  <TableCell>{country?.flag} {country?.name}</TableCell>
+                  <TableCell>{country?.name}</TableCell>
                   <TableCell><VerificationBadge status={r.status} /></TableCell>
                   <TableCell className="text-muted-foreground">{formatDateShort(r.date)}</TableCell>
                   <TableCell>

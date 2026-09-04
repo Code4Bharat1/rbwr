@@ -147,7 +147,7 @@ export function BreakARecordWizard({ initialRecordId }: { initialRecordId?: stri
                 <Select value={country} onValueChange={setCountry}>
                   <SelectTrigger className="w-full"><SelectValue placeholder="Select country" /></SelectTrigger>
                   <SelectContent>
-                    {countries.map((c) => <SelectItem key={c.id} value={c.id}>{c.flag} {c.name}</SelectItem>)}
+                    {countries.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </Field>

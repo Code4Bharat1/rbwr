@@ -9,9 +9,9 @@ import { formatDate, formatDateTime } from "@/lib/format";
 export async function generateMetadata({ params }: { params: Promise<{ recordId: string }> }): Promise<Metadata> {
   const { recordId } = await params;
   const record = getRecord(recordId);
-  if (!record) return { title: "Record Not Found — RBWR Verification" };
+  if (!record) return { title: "Record Not Found | RBWR Verification" };
   return {
-    title: `Verify ${record.id} — RBWR`,
+    title: `Verify ${record.id} | RBWR`,
     description: `Official RBWR verification for "${record.title}", held by ${record.holderName}.`,
   };
 }

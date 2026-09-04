@@ -101,7 +101,7 @@ export default function AdjudicatorApplicationPage() {
             <Select required defaultValue="">
               <SelectTrigger className="w-full"><SelectValue placeholder="Select country" /></SelectTrigger>
               <SelectContent>
-                {countries.map((c) => <SelectItem key={c.id} value={c.id}>{c.flag} {c.name}</SelectItem>)}
+                {countries.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
               </SelectContent>
             </Select>
           </Field>
@@ -124,7 +124,7 @@ export default function AdjudicatorApplicationPage() {
                 <Select defaultValue="">
                   <SelectTrigger className="w-full"><SelectValue placeholder="Select district" /></SelectTrigger>
                   <SelectContent>
-                    {districts.map((d) => <SelectItem key={d.id} value={d.id}>District {d.number} — {d.name}</SelectItem>)}
+                    {districts.map((d) => <SelectItem key={d.id} value={d.id}>District {d.number}: {d.name}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </Field>
@@ -154,7 +154,7 @@ export default function AdjudicatorApplicationPage() {
             <Label htmlFor="declaration" className="text-sm font-normal leading-snug text-foreground/80">
               I understand and agree that as a Certified Adjudicator I must not adjudicate my own attempt, an
               attempt involving immediate family, an event I organized, or any attempt in which I have a financial
-              interest — and that I must declare any such conflict of interest immediately upon assignment.
+              interest, and that I must declare any such conflict of interest immediately upon assignment.
             </Label>
           </div>
         </div>

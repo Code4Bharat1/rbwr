@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { PauseCircle, RefreshCcw } from "lucide-react";
+import { PauseCircle, RefreshCcw, Star } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "@/components/shared/user-avatar";
@@ -91,8 +91,9 @@ export default function AdminAdjudicatorsPage() {
                   {isSuspended ? "Suspended" : p.availability}
                 </span>
               </div>
-              <p className="mt-3 text-sm text-muted-foreground">
-                {p.completedAttempts} attempts · {p.rating.toFixed(1)}★
+              <p className="mt-3 flex items-center gap-1 text-sm text-muted-foreground">
+                {p.completedAttempts} attempts · {p.rating.toFixed(1)}
+                <Star className="h-3.5 w-3.5 fill-gold text-gold" />
               </p>
               <div className="mt-3 flex gap-1 border-t border-border pt-3">
                 <Button

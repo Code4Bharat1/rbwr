@@ -1,4 +1,4 @@
-import { Award, Globe2, Star, TrendingUp } from "lucide-react";
+import { Award, CheckCircle2, Globe2, Star, TrendingUp } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { getAdjudicatorProfile } from "@/lib/data/adjudicators";
 import { CURRENT_ADJUDICATOR_ID } from "@/lib/demo-config";
@@ -38,10 +38,10 @@ export default function CertificationPage() {
           <div className="rounded-2xl border border-border bg-card p-5">
             <h3 className="font-display text-sm font-semibold text-navy">Training Modules Completed</h3>
             <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-              <li>✓ RBWR Core Adjudication Standards (v3)</li>
-              <li>✓ Evidence Chain-of-Custody Procedures</li>
-              <li>✓ Conflict of Interest & Ethics</li>
-              <li>✓ Mass-Participation Measurement Techniques</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-verified" /> RBWR Core Adjudication Standards (v3)</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-verified" /> Evidence Chain-of-Custody Procedures</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-verified" /> Conflict of Interest & Ethics</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-verified" /> Mass-Participation Measurement Techniques</li>
             </ul>
           </div>
         </div>

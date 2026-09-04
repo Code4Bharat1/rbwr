@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Award, ClipboardCheck, Globe2 } from "lucide-react";
+import { Award, ClipboardCheck, Globe2, Star } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { UserAvatar } from "@/components/shared/user-avatar";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,7 @@ export default function AdjudicatorsPage() {
                 <UserAvatar initials={user.initials} color={user.avatarColor} size="lg" />
                 <div>
                   <p className="font-display font-semibold text-navy">{user.name}</p>
-                  <p className="text-sm text-muted-foreground">{city?.name}, {country?.name} {country?.flag}</p>
+                  <p className="text-sm text-muted-foreground">{city?.name}, {country?.name}</p>
                 </div>
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -51,7 +51,7 @@ export default function AdjudicatorsPage() {
               <div className="mt-auto flex items-center justify-between border-t border-border pt-3 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1"><ClipboardCheck className="h-3.5 w-3.5" /> {p.completedAttempts} attempts</span>
                 <span className="flex items-center gap-1"><Globe2 className="h-3.5 w-3.5" /> {p.languages.length} languages</span>
-                <span>{p.rating.toFixed(1)}★</span>
+                <span className="flex items-center gap-1">{p.rating.toFixed(1)} <Star className="h-3 w-3 fill-gold text-gold" /></span>
               </div>
             </div>
           );

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -35,7 +35,7 @@ export default function ContactPage() {
           onSubmit={(e) => {
             e.preventDefault();
             setSent(true);
-            toast.success("Message sent — our team will respond within 2 business days.");
+            toast.success("Message sent. Our team will respond within 2 business days.");
           }}
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -54,8 +54,9 @@ export default function ContactPage() {
             </Select>
           </Field>
           <Field label="Message"><Textarea required rows={5} placeholder="How can we help?" /></Field>
-          <Button type="submit" className="w-fit bg-navy-gradient text-white hover:opacity-90">
-            {sent ? "Message Sent ✓" : "Send Message"}
+          <Button type="submit" className="w-fit gap-1.5 bg-navy-gradient text-white hover:opacity-90">
+            {sent && <CheckCircle2 className="h-4 w-4" />}
+            {sent ? "Message Sent" : "Send Message"}
           </Button>
         </form>
       </div>

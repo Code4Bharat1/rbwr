@@ -40,7 +40,7 @@ export function CertificatePreview({
         <h3 className="mt-4 font-display text-lg text-muted-foreground">has officially achieved the record for</h3>
         <p className="mt-2 max-w-xl font-display text-2xl font-semibold text-royal">{record.title}</p>
         <p className="mt-3 text-sm text-muted-foreground">
-          {record.achievementValue} {record.achievementUnit} — {city?.name}, {country?.name}
+          {record.achievementValue} {record.achievementUnit} · {city?.name}, {country?.name}
         </p>
 
         <div className="mt-8 grid w-full grid-cols-2 gap-6 border-t border-dashed border-border pt-6 text-left sm:grid-cols-4">

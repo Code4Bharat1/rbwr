@@ -1,14 +1,14 @@
 import { City, Club, Country, District } from "@/lib/types";
 
 export const countries: Country[] = [
-  { id: "in", name: "India", code: "IN", flag: "🇮🇳", recordCount: 7 },
-  { id: "us", name: "United States", code: "US", flag: "🇺🇸", recordCount: 4 },
-  { id: "gb", name: "United Kingdom", code: "GB", flag: "🇬🇧", recordCount: 2 },
-  { id: "au", name: "Australia", code: "AU", flag: "🇦🇺", recordCount: 2 },
-  { id: "ke", name: "Kenya", code: "KE", flag: "🇰🇪", recordCount: 1 },
-  { id: "ph", name: "Philippines", code: "PH", flag: "🇵🇭", recordCount: 2 },
-  { id: "br", name: "Brazil", code: "BR", flag: "🇧🇷", recordCount: 1 },
-  { id: "jp", name: "Japan", code: "JP", flag: "🇯🇵", recordCount: 1 },
+  { id: "in", name: "India", code: "IN", recordCount: 7 },
+  { id: "us", name: "United States", code: "US", recordCount: 4 },
+  { id: "gb", name: "United Kingdom", code: "GB", recordCount: 2 },
+  { id: "au", name: "Australia", code: "AU", recordCount: 2 },
+  { id: "ke", name: "Kenya", code: "KE", recordCount: 1 },
+  { id: "ph", name: "Philippines", code: "PH", recordCount: 2 },
+  { id: "br", name: "Brazil", code: "BR", recordCount: 1 },
+  { id: "jp", name: "Japan", code: "JP", recordCount: 1 },
 ];
 
 export const districts: District[] = [

@@ -69,7 +69,7 @@ export function Footer() {
         </div>
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row">
           <p>© 2026 Rotary Book of World Records. Interactive prototype for presentation purposes.</p>
-          <p>Built as a clickable demo — no data leaves your browser.</p>
+          <p>Built as a clickable demo. No data leaves your browser.</p>
         </div>
       </div>
     </footer>

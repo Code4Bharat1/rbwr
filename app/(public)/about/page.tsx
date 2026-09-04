@@ -15,7 +15,7 @@ export default function AboutPage() {
       <SectionHeading
         eyebrow="About RBWR"
         title="A Global Home for Extraordinary Achievement"
-        description="The Rotary Book of World Records exists to document, verify, and permanently celebrate extraordinary human achievement — individual and collective, Rotary and beyond."
+        description="The Rotary Book of World Records exists to document, verify, and permanently celebrate extraordinary human achievement: individual and collective, Rotary and beyond."
         align="center"
       />
 
@@ -45,7 +45,7 @@ export default function AboutPage() {
         <p className="mt-3 text-muted-foreground">
           RBWR was founded on the belief that extraordinary community achievement deserves the same rigor of
           documentation as any world record. Born from Rotary&apos;s century-long tradition of service, RBWR
-          expanded its scope to welcome corporations, schools, and independent record-breakers worldwide —
+          expanded its scope to welcome corporations, schools, and independent record-breakers worldwide,
           all held to the same certified verification standard.
         </p>
       </div>

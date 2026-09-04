@@ -147,7 +147,7 @@ export function getIndividualLeaderboard(): LeaderboardEntry[] {
       return {
         id: userId,
         name: user?.name ?? "Unknown",
-        subtitle: country ? `${country.flag} ${country.name}` : "",
+        subtitle: country ? country.name : "",
         recordCount: recs.length,
         points: pointsFor(recs),
       };
@@ -168,7 +168,7 @@ export function getClubLeaderboard(): LeaderboardEntry[] {
       return {
         id: clubId,
         name: club?.name ?? "Unknown Club",
-        subtitle: country ? `${country.flag} ${country.name}` : "",
+        subtitle: country ? country.name : "",
         recordCount: recs.length,
         points: pointsFor(recs),
       };
@@ -187,7 +187,7 @@ export function getCityLeaderboard(): LeaderboardEntry[] {
       return {
         id: cityId,
         name: cityId.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-        subtitle: country ? `${country.flag} ${country.name}` : "",
+        subtitle: country ? country.name : "",
         recordCount: recs.length,
         points: pointsFor(recs),
       };
@@ -205,7 +205,7 @@ export function getCountryLeaderboard(): LeaderboardEntry[] {
       const country = getCountry(countryId);
       return {
         id: countryId,
-        name: country ? `${country.flag} ${country.name}` : countryId,
+        name: country ? country.name : countryId,
         subtitle: `${recs.length} records`,
         recordCount: recs.length,
         points: pointsFor(recs),
@@ -231,7 +231,7 @@ export function getDistrictLeaderboard(): LeaderboardEntry[] {
       const district = getDistrict(districtId);
       return {
         id: districtId,
-        name: district ? `District ${district.number} — ${district.name}` : districtId,
+        name: district ? `District ${district.number}: ${district.name}` : districtId,
         subtitle: `${recs.length} records`,
         recordCount: recs.length,
         points: pointsFor(recs),

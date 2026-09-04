@@ -29,8 +29,8 @@ export default function HomePage() {
             Where Extraordinary Achievements Become Permanent Records.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70">
-            Search, verify, and celebrate world records — from mass Rotary formations to corporate
-            innovation feats — adjudicated by a certified global network.
+            Search, verify, and celebrate world records, from mass Rotary formations to corporate
+            innovation feats, adjudicated by a certified global network.
           </p>
           <div className="mt-8 flex justify-center">
             <HeroSearch />
@@ -87,7 +87,6 @@ export default function HomePage() {
       <section className="bg-secondary/40 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Happening Now"
             title="Live & Upcoming Attempts"
             description="Follow record attempts as they're adjudicated in real time, or see what's scheduled next."
           />
@@ -110,7 +109,6 @@ export default function HomePage() {
       {/* Explore by Record Type */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Categories"
           title="Explore by Record Type"
           description="Every record on RBWR belongs to one of ten record families."
         />
@@ -125,7 +123,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Process"
             title="How It Works"
-            description="From concept to certificate — six stages, fully verified. Click any step for details."
+            description="From concept to certificate: six stages, fully verified. Click any step for details."
             align="center"
           />
           <div className="mt-10">
@@ -136,7 +134,7 @@ export default function HomePage() {
 
       {/* Leaderboard preview */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <SectionHeading eyebrow="Rankings" title="Global Leaderboard" align="center" />
+        <SectionHeading title="Global Leaderboard" align="center" />
         <div className="mt-8">
           <LeaderboardPreview />
         </div>

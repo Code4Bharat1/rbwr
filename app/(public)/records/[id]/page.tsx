@@ -34,11 +34,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const record = records.find((r) => r.id === id);
-  if (!record) return { title: "Record Not Found — RBWR" };
+  if (!record) return { title: "Record Not Found | RBWR" };
 
-  const description = `${record.holderName} — ${record.achievementValue} ${record.achievementUnit}. Verified ${record.status === "current" ? "current" : record.status} RBWR world record, ${record.id}.`;
+  const description = `${record.holderName}, ${record.achievementValue} ${record.achievementUnit}. Verified ${record.status === "current" ? "current" : record.status} RBWR world record, ${record.id}.`;
   return {
-    title: `${record.title} — RBWR`,
+    title: `${record.title} | RBWR`,
     description,
     openGraph: {
       title: record.title,
@@ -106,7 +106,7 @@ export default async function RecordDetailsPage({ params }: { params: Promise<{ 
             <div>
               <p className="text-xs uppercase tracking-wide text-white/50">Country</p>
               <p className="mt-1 font-medium">
-                {country?.flag} {country?.name}
+                {country?.name}
               </p>
             </div>
             <div>
@@ -226,7 +226,7 @@ export default async function RecordDetailsPage({ params }: { params: Promise<{ 
                   {attempt?.measurement && (
                     <p>
                       <span className="font-medium">{attempt.measurement.value}</span>{" "}
-                      {attempt.measurement.unit} — {attempt.measurement.method}
+                      {attempt.measurement.unit} · {attempt.measurement.method}
                     </p>
                   )}
                 </div>

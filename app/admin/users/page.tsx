@@ -52,7 +52,7 @@ export default function AdminUsersPage() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground">{country?.flag} {country?.name}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{country?.name}</td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-1">
                       {u.roles.map((r) => (

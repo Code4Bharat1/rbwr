@@ -59,7 +59,7 @@ export function SocialShare({ title }: { title: string }) {
     {
       name: "WhatsApp",
       icon: WhatsAppIcon,
-      href: () => `https://wa.me/?text=${encodeURIComponent(`${title} — ${urlOf()}`)}`,
+      href: () => `https://wa.me/?text=${encodeURIComponent(`${title}: ${urlOf()}`)}`,
     },
     {
       name: "Facebook",
@@ -81,7 +81,7 @@ export function SocialShare({ title }: { title: string }) {
   async function copyLink() {
     try {
       await navigator.clipboard.writeText(urlOf());
-      toast.success("Link copied — paste it into Instagram or anywhere else");
+      toast.success("Link copied. Paste it into Instagram or anywhere else.");
     } catch {
       toast("Copy this page's URL to share it");
     }

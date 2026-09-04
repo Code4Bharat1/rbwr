@@ -23,7 +23,7 @@ const fontMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RBWR — Rotary Book of World Records",
+  title: "RBWR: Rotary Book of World Records",
   description:
     "Where extraordinary achievements become permanent records. Explore, verify, and celebrate world records with the Rotary Book of World Records.",
 };

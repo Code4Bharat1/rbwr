@@ -23,7 +23,7 @@ export default function AdminCitiesPage() {
               return (
                 <tr key={c.id}>
                   <td className="px-4 py-3 font-medium">{c.name}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{country?.flag} {country?.name}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{country?.name}</td>
                   <td className="px-4 py-3 text-muted-foreground">{district ? `District ${district.number}` : "—"}</td>
                   <td className="px-4 py-3">{records.filter((r) => r.cityId === c.id).length}</td>
                 </tr>

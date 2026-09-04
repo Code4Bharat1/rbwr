@@ -163,7 +163,7 @@ export function RecordsExplorer({
                 <SelectItem value="all">All Countries</SelectItem>
                 {countries.map((c) => (
                   <SelectItem key={c.id} value={c.id}>
-                    {c.flag} {c.name}
+                    {c.name}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -192,7 +192,7 @@ export function RecordsExplorer({
               <SelectContent>
                 <SelectItem value="all">All Districts</SelectItem>
                 {districtsWithRecords.map((d) => (
-                  <SelectItem key={d.id} value={d.id}>District {d.number} — {d.name}</SelectItem>
+                  <SelectItem key={d.id} value={d.id}>District {d.number}: {d.name}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
